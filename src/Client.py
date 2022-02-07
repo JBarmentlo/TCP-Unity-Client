@@ -4,10 +4,18 @@ import json
 import os
 import logging
 import os
-
+from enum import Enum
 
 HOST = "localhost"  # The server's hostname or IP address
 PORT = 13000        # The port used by the server
+
+# class ActionEnum(Enum):
+Nothing	= 0
+Up 		= 1
+Down 	= 2
+Left 	= 3
+Right 	= 4	
+	
 
 class  Client():
 	def __init__(self):
@@ -19,6 +27,7 @@ class  Client():
 		self.b_captures	= 0
 		self.connected	= False
 
+		# self.sock : socket
 		# self.connect()
 		
 
@@ -37,6 +46,7 @@ class  Client():
 		# if (self.sock.)
 		data = json.dumps(msg)
 		self.sock.sendall(bytes(data,encoding="utf-8"))
+		# self.sock.send(bytes(data,encoding="utf-8"), 1024)
 		print(f"sending {data}")
 
 
@@ -46,11 +56,16 @@ class  Client():
 		received = received.decode("utf-8")
 	
 
+	def send_action(self, action):
+		msg = {"action" : action}
+		self.send_msg(msg)
 		
+	
 
 c = Client()
 c.connect()
-c.send_msg({"type" : "test", "im" : "gross"})
+c.send_action(Down)
+# c.send_msg({"type" : "test", "im" : "gross"})
 # board = c.play_move(181)
 
 
