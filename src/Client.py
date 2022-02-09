@@ -51,15 +51,19 @@ class  Client():
 	def send_msg(self, msg):
 		# if (self.sock.)
 		data = json.dumps(msg)
+		print("Sending: ", data)
 		self.sock.sendall(bytes(data,encoding="utf-8"))
+		print("Sent\n\n")
 		# self.sock.send(bytes(data,encoding="utf-8"), 1024)
 		# print(f"sending {data}")
 
 
 	def recv_msg(self):
-		received = self.sock.recv(1024)
-		print('Received', received)
+		received = self.sock.recv(5000)
+
 		received = received.decode("utf-8")
+		print('Received', received)
+		print("\n")
 	
 
 	def send_action(self, action):
@@ -72,14 +76,14 @@ class  Client():
 		while(True):
 			if keyboard.is_pressed('w'):
 				self.send_action(Up)
-			if keyboard.is_pressed('a'):
+			elif keyboard.is_pressed('a'):
 				self.send_action(Left)
-			if keyboard.is_pressed('s'):
+			elif keyboard.is_pressed('s'):
 				self.send_action(Down)
-			if keyboard.is_pressed('d'):
+			elif keyboard.is_pressed('d'):
 				self.send_action(Right)
-			if keyboard.is_pressed(' '):
-				self.send_action(Up)
+			elif keyboard.is_pressed(' '):
+				self.send_action(Bomb)
 				
 
 	
