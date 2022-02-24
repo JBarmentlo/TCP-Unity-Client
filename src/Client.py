@@ -12,6 +12,7 @@ import keyboard  # using module keyboard?\
 
 import colorama
 from colorama import Fore
+from matplotlib.pyplot import delaxes
 
 HOST = "localhost"  # The server's hostname or IP address
 PORT = 13000        # The port used by the server
@@ -26,7 +27,9 @@ Left   = 3
 Right  = 4     
 Bomb   = 5
 
-
+Untyped = 0
+Player  = 1
+Controller = 2
 
 # Player1
 # Player2,
@@ -60,6 +63,7 @@ class  Client():
 		for i in range(10):
 			self.board.append([([" "] * (10))])
 		self.msg = ""
+		self.player = 1
 
 		# self.sock : socket
 		# self.connect()
@@ -71,6 +75,14 @@ class  Client():
 		self.sock.connect((HOST, PORT))
 		self.connected = True
 		
+		
+	def request_type(self, num = -1, typo = Player ,passw = "default"):
+		'''
+		num -1 for first available player. only works if player not instantiated;
+		'''
+		msg = {"requestedType" : typo, "pass" : passw, "playerNum" : num}
+		self.send_msg(msg)
+
 
 	def close(self):
 		self.sock.close()
@@ -91,8 +103,9 @@ class  Client():
 
 		received = received.decode("utf-8")
 		self.msg = received
-		print('Received', received)
-		print("\n")
+		# print('Received', received)
+		print('Received')
+		# print("\n")
 	
 
 
@@ -101,17 +114,15 @@ class  Client():
 		self.board		= []
 		for i in range(10):
 			self.board.append(([" "] * (10)))
-		print(self.board)
 		a = json.loads(msg)
 		for e in a:
 			x,y = itemtopos(e)
-			print(x, y)
 			self.board[y][x] = dico[e["type"]]
 		for i in range(9):
 			print(self.board[9 - i])
 
 	def send_action(self, action):
-		msg = {"action" : action}
+		msg = {"action" : action, "playerNum" : self.player, "pass": "lolpas"}
 		self.send_msg(msg)
 		self.recv_msg()
 		self.parseboard(self.msg)
@@ -135,15 +146,16 @@ class  Client():
 
 
 
-
 	
 
 # test = '[{"type":5,"position":{"x":6.996999740600586,"y":0.5,"z":4.0}},{"type":5,"position":{"x":2.0,"y":0.5,"z":8.0}},{"type":5,"position":{"x":6.996999740600586,"y":0.5,"z":2.0}},{"type":5,"position":{"x":2.996999979019165,"y":0.5,"z":8.0}},{"type":5,"position":{"x":2.996999979019165,"y":0.5,"z":7.0}},{"type":5,"position":{"x":7.996999740600586,"y":0.5,"z":5.0}},{"type":5,"position":{"x":4.996999740600586,"y":0.5,"z":8.0}},{"type":5,"position":{"x":4.996999740600586,"y":0.5,"z":4.0}},{"type":5,"position":{"x":0.996999979019165,"y":0.5,"z":2.0}},{"type":5,"position":{"x":0.996999979019165,"y":0.5,"z":4.0}},{"type":5,"position":{"x":6.996999740600586,"y":0.5,"z":6.0}},{"type":5,"position":{"x":0.996999979019165,"y":0.5,"z":3.0}},{"type":5,"position":{"x":3.996999740600586,"y":0.5,"z":2.0}},{"type":5,"position":{"x":5.996999740600586,"y":0.5,"z":2.0}},{"type":5,"position":{"x":2.996999979019165,"y":0.5,"z":4.0}},{"type":5,"position":{"x":7.996999740600586,"y":0.5,"z":8.0}},{"type":4,"position":{"x":9.0,"y":0.5,"z":4.0}},{"type":0,"position":{"x":6.2354817390441898,"y":0.5,"z":3.9251511096954347},"playerNumber":1,"moveSpeed":6.0,"bombs":4,"bombRange":3,"dead":false,"bombPrefab":{"instanceID":4998}},{"type":1,"position":{"x":8.0,"y":0.5,"z":2.0},"playerNumber":2,"moveSpeed":4.0,"bombs":2,"bombRange":2,"dead":false,"bombPrefab":{"instanceID":4998}}]'
 # a = json.loads(test)
 c = Client()
 c.connect()
-# # c.send_action(Down)
-c.loopyloop()
+# c.send_action(Down)
+# c.send_action(Up)
+
+# c.loopyloop()
 
 # c.send_msg({"type" : "test", "im" : "gross"})
 # board = c.play_move(181)
