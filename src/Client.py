@@ -99,12 +99,16 @@ class  Client():
 
 
 	def recv_msg(self):
-		received = self.sock.recv(5000)
-
+		self.msg = ""
+		received = self.sock.recv(4096)
 		received = received.decode("utf-8")
-		self.msg = received
-		# print('Received', received)
-		print('Received')
+		self.msg += received
+		while ((len(received) == 4096) and (received[-1] not in ["]","}"])):
+			received = self.sock.recv(4096)
+			received = received.decode("utf-8")
+			self.msg += received
+		print('Received', self.msg)
+		# print('Received')
 		# print("\n")
 	
 
@@ -120,6 +124,7 @@ class  Client():
 			self.board[y][x] = dico[e["type"]]
 		for i in range(9):
 			print(self.board[9 - i])
+
 
 	def send_action(self, action):
 		msg = {"action" : action, "playerNum" : self.player, "pass": "lolpas"}
