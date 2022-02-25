@@ -18,7 +18,7 @@ HOST = "localhost"  # The server's hostname or IP address
 PORT = 13000        # The port used by the server
 
 # class ActionEnum(Enum):
-dico = {0: Fore.BLUE + "P", 1:"P",2:"B",3:"E",4:"W",5: "C", 6 : "r",7:"b",8:"s"}
+dico = {0: "1", 1:"2",2:"B",3:"E",4:"W",5: "C", 6 : "r",7:"b",8:"s"}
 
 Nothing = 0
 Up      = 1
@@ -82,6 +82,8 @@ class  Client():
 		'''
 		msg = {"requestedType" : typo, "pass" : passw, "playerNum" : num}
 		self.send_msg(msg)
+		self.recv_msg()
+		self.parse_request()
 
 
 	def close(self):
@@ -100,13 +102,12 @@ class  Client():
 
 	def recv_msg(self):
 		self.msg = ""
-		received = self.sock.recv(4096)
-		received = received.decode("utf-8")
-		self.msg += received
-		while ((len(received) == 4096) and (received[-1] not in ["]","}"])):
+		n = int(self.sock.recv(8))
+		while (n > 0):
 			received = self.sock.recv(4096)
 			received = received.decode("utf-8")
 			self.msg += received
+			n = n - len(received)
 		print('Received', self.msg)
 		# print('Received')
 		# print("\n")
@@ -124,6 +125,17 @@ class  Client():
 			self.board[y][x] = dico[e["type"]]
 		for i in range(9):
 			print(self.board[9 - i])
+
+
+	def parse_request(self):
+		rep = json.loads(self.msg)
+		if (rep["requestedType"] == Untyped):
+			print("request denied")
+			return
+		
+		self.player = rep["playerNum"]
+
+
 
 
 	def send_action(self, action):
@@ -157,6 +169,7 @@ class  Client():
 # a = json.loads(test)
 c = Client()
 c.connect()
+c.request_type(-1)
 # c.send_action(Down)
 # c.send_action(Up)
 
