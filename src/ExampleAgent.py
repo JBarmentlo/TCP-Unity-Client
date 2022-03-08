@@ -2,7 +2,25 @@ from random import Random
 from Environment import Environnement
 import defines
 
-class RandomAgent:
+class Agent:
+	def __init__(self, player_num):
+		self.player_num = player_num
+		self.env		= Environnement(player_num)
+
+
+	def get_action(self, state):
+		pass
+
+	
+	def do_action(self, action):
+		pass
+
+	
+	def get_state(self):
+		pass
+
+
+class RandomAgent(Agent): 
 	def __init__(self, player_num):
 		self.player_num = player_num
 		self.env		= Environnement(player_num)
@@ -41,3 +59,19 @@ class RandomAgent:
 		'''
 		return self.env.do_action(defines.Nothing)
 
+
+import sys
+import time
+if __name__ == "__main__":
+	agent = RandomAgent(int(sys.argv[1]))
+	agent.env.reset()
+	state1 = agent.get_state()
+	game_over = False
+
+
+	while game_over == False:
+		time.sleep(0.1)
+		state = agent.do_action(agent.get_action(state1))
+		_, _, w = state
+		if (w is not None):
+			game_over = True

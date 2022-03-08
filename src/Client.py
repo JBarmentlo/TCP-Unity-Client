@@ -97,6 +97,7 @@ class  Client():
 		print(self.msg)
 		self.board			= []
 		self.player_states	= []
+		self.winner			= None
 
 		for i in range(self.h):
 			self.board.append(([" "] * (self.w)))

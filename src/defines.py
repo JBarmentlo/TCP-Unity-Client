@@ -6,7 +6,6 @@ Right  	= 4
 Bomb   	= 5
 Reset  	= 6
 
-# action_space = [Nothing, Up, Down, Left, Right]
 action_space = [Nothing, Up, Down, Left, Right, Bomb]
 
 Untyped 	= 0
