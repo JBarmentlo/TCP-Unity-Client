@@ -41,6 +41,7 @@ class  Client():
 		self.player 		= player
 		self.player_states	= []
 		self.connected		= False
+		self.winner			= None
 
 		for i in range(self.h):
 			self.board.append([([" "] * (self.w))])
@@ -101,6 +102,9 @@ class  Client():
 			self.board.append(([" "] * (self.w)))
 		a = json.loads(msg)
 		for e in a:
+			if (e["type"] == -1):
+				self.winner = e["winner"]
+				continue;
 			x,y = itemtopos(e)
 			self.board[y][x] = dico[e["type"]]
 			try:
@@ -131,6 +135,10 @@ class  Client():
 		self.parseboard(self.msg)
 
 
+	def reset(self):
+		self.winner = None
+		self.send_action(defines.Reset)
+
 	# def loopyloop(self):
 	# 	while(True):
 	# 		if keyboard.is_pressed('w'):
@@ -149,8 +157,9 @@ class  Client():
 	
 	def get_state(self):
 		"""
-			Returns a (state, players) tuple
+			Returns a (state, players, winner) tuple
 			players is an array of json objects representing the players
+			winner is None if no one has won yet, otherwise it is 1 or 2
 			state is an array of size (11, 11) containing the following strings
 			Player1		: "1",
 			Player2		: "2", 
@@ -163,7 +172,7 @@ class  Client():
 			Extra Speed Bonus			: "s"
 
 		"""
-		return (self.board, self.player_states)
+		return (self.board, self.player_states, self.winner)
 
 
 

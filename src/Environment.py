@@ -31,13 +31,18 @@ class Environnement:
 			Extra Speed Bonus			: "s"
 		"""
 		self.client.send_action(action)
-		s, players = self.client.get_state()
+		s, players, w = self.client.get_state()
 		pp = []
 		for p in players:
 			pp.append(PlayerState(p, self.player_num))
-		return (s, pp)
+		return (s, pp, w)
 
 
 	def reset(self):
-		return self.do_action(defines.Reset)
+		self.client.reset()
+		s, players, w = self.client.get_state()
+		pp = []
+		for p in players:
+			pp.append(PlayerState(p, self.player_num))
+		return (s, pp, w)
 	
