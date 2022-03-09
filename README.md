@@ -5,6 +5,11 @@ This is a client to control a player in a BomberBuddy game. The purpose is to ha
 ## How it works
 
 Download the game and put the path to the game in Client.py
+mac:   
+https://drive.google.com/file/d/1F5GoeN_-0d1NlI7jnxCjBKJHthOO0Bk1/view?usp=sharing
+
+Linux:   
+https://drive.google.com/file/d/19j9jLHTMItYzpvW5AvbufL0z1VLRaVST/view?usp=sharing
 
 ```python
 PATH_TO_BOMBER = "/home/me/bomber.x86_64"
