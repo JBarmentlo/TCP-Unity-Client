@@ -15,13 +15,24 @@ run fight.py with python3.
 ```bash
 cd src
 python3 fight.py "./ExampleAgent.py" "./ExampleAgent.py" 
+python3 fight.py "./ExampleAgent.py" "./ExampleAgent.py" fast
+```
+
+if you do not want to relaunch the game everytime use the fast option.
+
+```bash
+python3 fight.py "./ExampleAgent.py" "./ExampleAgent.py" fast
 ```
 
 The code to ExampleAgent.py contains what you need to know to start building an agent.  
 use fight.py to make two agents fight.
 
+## How you can help ?
+
+You can help by reporting bugs or suggesting features / improvements.  
+Don't be shy to say something looks wierd or stupid or to ask for stuff (i.e I wanna be able to play against my AI)  
+If you want to help dev on the project contact us at contact@42ai.fr.  
 
 ## Thanks
 
 Thank you for participating in the beta of this project and helping 42AI organize cool competitions in the school
-

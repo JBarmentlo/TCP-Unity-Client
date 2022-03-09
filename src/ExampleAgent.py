@@ -64,7 +64,7 @@ import sys
 import time
 if __name__ == "__main__":
 	agent = RandomAgent(int(sys.argv[1]))
-	agent.env.reset()
+	# agent.env.reset()
 	state1 = agent.get_state()
 	game_over = False
 

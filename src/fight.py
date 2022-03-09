@@ -33,7 +33,7 @@ if __name__ == "__main__":
 		subprocess.Popen([PATH_TO_BOMBER])
 		time.sleep(7)
 	enemy_agent = RandomAgent(1)
-	enemy_agent.env.reset()
+	# enemy_agent.env.reset()
 	subprocess.Popen(["python3", sys.argv[1], "1"])
 	subprocess.Popen(["python3", sys.argv[2], "2"])
 

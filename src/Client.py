@@ -59,6 +59,8 @@ class  Client():
 			self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 			self.sock.connect((HOST, PORT))
 			self.connected = True
+		print("CONNNNECTEEED\n\n\n\n")
+		
 		
 		
 	def request_type(self, num = -1, typo = defines.Player ,passw = "default"):
@@ -94,7 +96,6 @@ class  Client():
 
 	
 	def parseboard(self, msg):
-		print(self.msg)
 		self.board			= []
 		self.player_states	= []
 		self.winner			= None
