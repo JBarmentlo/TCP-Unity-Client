@@ -16,7 +16,6 @@ def play_game_against_random_agent(my_agent : Agent):
 	state2 = my_agent.get_state()
 	game_over = False
 
-
 	while game_over == False:
 		time.sleep(0.1)
 		state1 = enemy_agent.do_action(enemy_agent.get_action(state1))
@@ -29,9 +28,9 @@ def play_game_against_random_agent(my_agent : Agent):
 
 
 if __name__ == "__main__":
-	if (len(sys.argv) != 4 or sys.argv[3] != "fast"):
-		subprocess.Popen([PATH_TO_BOMBER])
-		time.sleep(7)
+	# if (len(sys.argv) != 4 or sys.argv[3] != "fast"):
+	# 	subprocess.Popen([PATH_TO_BOMBER])
+	# 	time.sleep(7)
 	enemy_agent = RandomAgent(1)
 	enemy_agent.env.reset()
 	subprocess.Popen(["python3", sys.argv[1], "1"])

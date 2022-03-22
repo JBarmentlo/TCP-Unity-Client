@@ -17,9 +17,28 @@ class Environnement:
 
 	def do_action(self, action):
 		"""
-			Takes action and Returns a (state, players) tuple    
-			players is an array of PlayerState objects representing the players
-			state is an array of size (11, 11) containing the following strings
+		Takes action and Returns a (state, players, winner) tuple.
+
+		Parameters
+		----------
+		action : int
+			An action value defined in defines.py
+
+		Returns
+		-------
+		state   : array
+			An array of strings of size (11, 11) representing the board, player positions are rounded to the grid, for exact positions refer to the players array
+
+		players : array
+			array of PlayerState objects representing the players
+
+		winner   : int
+			1, 2 or None if game is not over.
+
+		Notes
+		-----
+			UNDERSTANDING THE STATE ARRAY
+			Here are the strings and what they represent:
 			Player1		: "1",
 			Player2		: "2", 
 			Bomb		: "B", 
