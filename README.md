@@ -19,6 +19,8 @@ https://drive.google.com/file/d/19j9jLHTMItYzpvW5AvbufL0z1VLRaVST/view?usp=shari
 You may have to `chmod +x bomber.x86_64`.  
 If you want to move the game, move the whole extracted folder, not just the executable, it wont work otherwise.
 
+Finally you need to modify in Client.py the variable `PATH_TO_BOMBER`.
+
 <br/>
 
 ### FIGHT !
